@@ -1,4 +1,4 @@
-package org.example.dao;
+package org.example.repositories;
 
 
 import org.example.entities.CityEntity;
@@ -7,10 +7,10 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 
-public class CityDao {
+public class CityRepo {
     private final SessionFactory sessionFactory;
 
-    public CityDao(SessionFactory sessionFactory) {
+    public CityRepo(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

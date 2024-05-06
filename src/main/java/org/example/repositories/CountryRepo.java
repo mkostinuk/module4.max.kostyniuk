@@ -1,14 +1,14 @@
-package org.example.dao;
+package org.example.repositories;
 
 import org.example.entities.CountryEntity;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class CountryDao {
+public class CountryRepo {
     private final SessionFactory sessionFactory;
 
-    public CountryDao(SessionFactory sessionFactory) {
+    public CountryRepo(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
