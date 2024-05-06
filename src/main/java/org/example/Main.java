@@ -6,8 +6,8 @@ import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
-import org.example.dao.CityDao;
-import org.example.dao.CountryDao;
+import org.example.repositories.CityRepo;
+import org.example.repositories.CountryRepo;
 import org.example.entities.CityEntity;
 import org.example.entities.CountryEntity;
 import org.example.entities.CountryLanguageEntity;
@@ -30,14 +30,14 @@ public class Main {
     private final SessionFactory sessionFactory;
     private final RedisClient redisClient;
     private final ObjectMapper mapper;
-    private final CityDao cityDao;
-    private final CountryDao countryDao;
+    private final CityRepo cityRepo;
+    private final CountryRepo countryRepo;
 
     public Main() {
         mapper = new ObjectMapper();
         this.sessionFactory = prepareRelationalDb();
-        cityDao = new CityDao(sessionFactory);
-        countryDao = new CountryDao(sessionFactory);
+        cityRepo = new CityRepo(sessionFactory);
+        countryRepo = new CountryRepo(sessionFactory);
         redisClient = prepareRedisClient();
     }
 
@@ -115,7 +115,7 @@ public class Main {
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
             for (Integer id : ids) {
-                CityEntity city = cityDao.getById(id);
+                CityEntity city = cityRepo.getById(id);
                 Set<CountryLanguageEntity> languages = city.getCountry().getLanguages();
 
             }
@@ -171,11 +171,11 @@ public class Main {
         try (Session session = main.sessionFactory.getCurrentSession()) {
             List<CityEntity> allCities = new ArrayList<>();
             session.beginTransaction();
-            List<CountryEntity> allCountries = countryDao.getAll();
-            int totalCount = main.cityDao.getTotalCount();
+            List<CountryEntity> allCountries = countryRepo.getAll();
+            int totalCount = main.cityRepo.getTotalCount();
             int step = 500;
             for (int i = 0; i < totalCount; i += step) {
-                allCities.addAll(main.cityDao.getItems(i, step));
+                allCities.addAll(main.cityRepo.getItems(i, step));
             }
             session.getTransaction().commit();
             return allCities;
