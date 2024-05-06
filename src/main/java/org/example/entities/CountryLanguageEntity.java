@@ -13,13 +13,18 @@ import java.math.BigDecimal;
 @Table(name = "country_language", schema = "world")
 public class CountryLanguageEntity {
     @Id
-    private Integer od;
+    private Integer id;
+
     @ManyToOne
     @JoinColumn(name = "country_id")
     private CountryEntity country;
+
     private String language;
+
     @Column(name = "is_official", columnDefinition = "BIT")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean isOfficial;
+
     private BigDecimal percentage;
 }
+

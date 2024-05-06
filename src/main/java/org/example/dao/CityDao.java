@@ -1,11 +1,10 @@
 package org.example.dao;
 
-import org.example.Main;
+
 import org.example.entities.CityEntity;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
-
 
 
 public class CityDao {
@@ -18,8 +17,8 @@ public class CityDao {
     public List<CityEntity> getItems(int offset, int limit) {
         return sessionFactory.getCurrentSession().
                 createQuery("from CityEntity c ", CityEntity.class).
-                setFirstResult(offset).setMaxResults(limit)
-                .list();
+                setFirstResult(offset).
+                setMaxResults(limit).list();
     }
 
     public int getTotalCount() {
@@ -28,5 +27,11 @@ public class CityDao {
                 uniqueResult());
     }
 
+    public CityEntity getById(Integer id) {
+        return sessionFactory.getCurrentSession().
+                createQuery("select c from CityEntity  c join fetch c.country where c.id = :ID", CityEntity.class).
+                setParameter("ID", id).uniqueResult();
     }
+
 }
+

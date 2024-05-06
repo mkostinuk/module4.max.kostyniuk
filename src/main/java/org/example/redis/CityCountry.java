@@ -2,8 +2,7 @@ package org.example.redis;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.Continent;
-import org.example.entities.CountryEntity;
+import org.example.enums.Continent;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -18,14 +17,9 @@ public class CityCountry {
     private String countryCode;
     private String secondCountryCode;
     private String countryName;
-
     private Continent continent;
-
     private String countryRegion;
-
     private BigDecimal countrySurfaceArea;
-
     private Integer countryPopulation;
-
     private Set<Language> languages;
 }
